@@ -66,7 +66,7 @@ def bwlabel(binary_image):
 # 存储目录
 path = "D:/SCNU/list2017/"
 # 寻找标注文件
-for i in range(20, 30):
+for i in range(0, 1):
     # nii_filename = "segmentation-0.nii"
     nii_filename = os.path.join(path, "segmentation-%d.nii" % i)
     # nii元文件
@@ -94,32 +94,37 @@ for i in range(20, 30):
             # 挑出肿瘤，去除肝脏标记
             new_tumour_data = nii_data[:, :, j].copy()
             new_tumour_data[new_tumour_data == 1] = 0
-            label_dict = [int(i) for i in np.zeros(600)]
+            # label_dict = [int(i) for i in np.zeros(600)]
             # 标记肝脏连通域
-            link_liver = bwlabel(new_liver_data)
+            # link_liver = bwlabel(new_liver_data)
             # 肝脏连通域个数
-            max_label = np.max(label_dict)
+            # max_label = np.max(label_dict)
             # 层json字典
             layer_json = {j: {}}
             # 遍历肝脏连通域
-            rec_number = 0
-            for k in range(1, max_label + 1):
+            # rec_number = 0
+            # for k in range(1, max_label + 1):
                 # 肝脏连通域索引条件
-                label_liver = link_liver[:, :] == k
+                # label_liver = link_liver[:, :] == k
                 # 某个肝脏连通域的行列二维索引数组
-                label_liver_arr = np.nonzero(label_liver)
+                # label_liver_arr = np.nonzero(label_liver)
                 # 部分层不存在标注
-                if label_liver_arr[0].size > 0:
-                    rec_number = rec_number + 1
+                # if label_liver_arr[0].size > 0:
+                #     rec_number = rec_number + 1
                     # 寻找肝脏连通域边界框
-                    y_min = np.min(label_liver_arr[0])
-                    y_max = np.max(label_liver_arr[0])
-                    x_min = np.min(label_liver_arr[1])
-                    x_max = np.max(label_liver_arr[1])
+                    # y_min = np.min(label_liver_arr[0])
+                    # y_max = np.max(label_liver_arr[0])
+                    # x_min = np.min(label_liver_arr[1])
+                    # x_max = np.max(label_liver_arr[1])
                     # 填充肝脏连通域
                     # new_data[x_min:x_max + 1, y_min:y_max + 1, j] = 1
                     # 生成json数据
-                    layer_json[j].update({rec_number: [int(x_min), int(x_max), int(y_min), int(y_max)]})
+            label_liver_arr = np.nonzero(new_liver_data)
+            y_min = np.min(label_liver_arr[0])
+            y_max = np.max(label_liver_arr[0])
+            x_min = np.min(label_liver_arr[1])
+            x_max = np.max(label_liver_arr[1])
+            layer_json[j].update({1: [int(x_min), int(x_max), int(y_min), int(y_max)]})
             if layer_json[j]:
                 rec_json['liver'].update(layer_json)
             label_dict = [int(i) for i in np.zeros(600)]
