@@ -16,7 +16,7 @@ print(queue)
 nii_data = nii_img.get_fdata()
 # 遍历nii每层
  # 绘制图片
-plt.imshow(nii_data[:, :, 47], cmap="gray")
+plt.imshow(nii_data[:, :, 53], cmap="gray")
 plt.show()
 # print(nii_data[:, :, 153])
 
