@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 np.set_printoptions(threshold=np.inf)
 
 # volume-0.nii  segmentation-0.nii new_test.nii
-nii_filename = "segmentation-0.nii"
+nii_filename = "segmentation-84.nii"
 # nii元文件
 nii_img = nib.load(nii_filename)
 # nii元文件长、宽、厚度
@@ -16,7 +16,7 @@ print(queue)
 nii_data = nii_img.get_fdata()
 # 遍历nii每层
  # 绘制图片
-plt.imshow(nii_data[:, :, 53], cmap="gray")
+plt.imshow(nii_data[:, :, 507], cmap="gray")
 plt.show()
 # print(nii_data[:, :, 153])
 
